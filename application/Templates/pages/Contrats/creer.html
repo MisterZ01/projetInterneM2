@@ -1,0 +1,70 @@
+{% extends 'components/master.html' %}
+{% load static %}
+
+{% block content %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="card card-warning">
+        <div class="card-header">
+          <h3 class="card-title">Enregistrement d'un client</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                  <label>Nom representant</label>
+                  <input type="text" class="form-control" placeholder="Enter ...">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Prenom(s) representant</label>
+                  <input type="text" class="form-control" placeholder="Enter ...">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                  <label>Nom de l'Entreprise</label>
+                  <input type="text" class="form-control" placeholder="Enter ...">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>Numéro de l'entrepsie</label>
+                  <input type="number" class="form-control" placeholder="Enter ...">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>Email de l'entrepsie</label>
+                  <input type="email" class="form-control" placeholder="Enter ...">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                  <label>Logo de l'Entreprise</label>
+                  <input type="file" class="form-control" placeholder="Enter ...">
+                </div>
+              </div>
+            </div>
+            <div >
+                <button type="submit" class="btn btn-primary">Enregister</button>
+              </div>
+          </form>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  {% endblock content %}
