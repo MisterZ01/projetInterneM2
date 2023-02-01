@@ -35,31 +35,25 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th>Rendering engine</th>
-                      <th>Browser</th>
-                      <th>Platform(s)</th>
-                      <th>Engine version</th>
-                      <th>Les X</th>
                       <th>catégorie</th>
                       <th>Sous catégorie</th>
                       <th>Nom</th>
                       <th>Montant</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for element in data %}
                   <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
                     <td>{{ element.category}}</td>
                     <td>{{ element.subcategory}}</td>
                     <td>{{ element.name}}</td>
                     <td>{{ element.amount}}</td>
+                    <td>
+                      <a href="{% url 'detail'  %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                      <a href="{% url 'edit' 1 %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                      <a href="{% url 'delete' 1 %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                    </td>
                   </tr>
                   {% endfor %}
                   </tbody>
