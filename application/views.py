@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import requests
 
 
 
@@ -25,3 +26,22 @@ def Contrat_create(request):
 
 def Contrat_list(request):
     return render(request, 'pages/Contrats/liste.html')
+
+
+# ---------------------------------------------- projet odc test api ----------------------------
+# test de mon api
+def usageapi(request):
+    reponse = requests.get("http://127.0.0.1:8000/api/all").json()
+    return render(request, 'pages/Panneaux/usageapi.html', {'data':reponse})
+# detail
+def detail(request, id):
+    reponse = requests.get("http://127.0.0.1:8000/api/all").json()
+    return render(request, 'pages/Panneaux/usageapi.html', {'data':reponse})
+# edit
+def edit(request, id):
+    reponse = requests.post("http://127.0.0.1:8000/api//update/{id}").json()
+    return render(request, 'pages/Panneaux/usageapi.html', {'data':reponse})
+# delete
+def delete(request, id):
+    r=  requests.post("http://127.0.0.1:8000/api/item/1/delete").json()
+    return render(request, "a")
