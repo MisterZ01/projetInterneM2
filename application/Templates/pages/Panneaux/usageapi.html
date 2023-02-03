@@ -35,24 +35,25 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th>catégorie</th>
-                      <th>Sous catégorie</th>
-                      <th>Nom</th>
-                      <th>Montant</th>
+                      <th>nom</th>
+                      <th>prenom</th>
+                      <th>adresse e-mail</th>
+                      <th>Entreprise</th>
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody>          
                     {% for element in data %}
                   <tr>
-                    <td>{{ element.category}}</td>
-                    <td>{{ element.subcategory}}</td>
-                    <td>{{ element.name}}</td>
-                    <td>{{ element.amount}}</td>
+                   
+                    <td>{{ element.nom_client}}</td>
+                    <td>{{ element.prenom_client}}</td>
+                    <td>{{ element.email_client}}</td>
+                    <td>{{ element.entreprise_client}}</td>
                     <td>
-                      <a href="{% url 'detail'  %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                      {% comment %} <a href="{% url 'detail'  %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
                       <a href="{% url 'edit' 1 %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                      <a href="{% url 'delete' 1 %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                      <a href="{% url 'delete' 1 %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> {% endcomment %}
                     </td>
                   </tr>
                   {% endfor %}
