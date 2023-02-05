@@ -14,7 +14,7 @@ class timestampe(models.Model):
 # classe de clients
 
 class Client(timestampe):
-    # cleint
+    # client
     nom_client = models.TextField(max_length=255)
     prenom_client = models.TextField(max_length=255)
     email_client = models.TextField(max_length=50)

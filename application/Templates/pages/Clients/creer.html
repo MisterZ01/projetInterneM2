@@ -11,19 +11,20 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <form>
+          <form action="{% url 'Client_store' %}"  method="POST"  >
+            {% csrf_token %}
             <div class="row">
               <div class="col-sm-6">
                 <!-- text input -->
                 <div class="form-group">
                   <label>Nom representant</label>
-                  <input type="text" class="form-control" placeholder="Enter ...">
+                  <input type="text" class="form-control" {% if edit %} value= " {{ nom_client }} "  {% endif %} placeholder="nom ..." name="nom_client">
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label>Prenom(s) representant</label>
-                  <input type="text" class="form-control" placeholder="Enter ...">
+                  <input type="text" class="form-control" {% if edit %} value= " {{ prenom_client }} "  {% endif %} placeholder="prenom ..." name="prenom_client">
                 </div>
               </div>
             </div>
@@ -32,31 +33,38 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label>Nom de l'Entreprise</label>
-                  <input type="text" class="form-control" placeholder="Enter ...">
+                  <input type="text" class="form-control" {% if edit %} value= " {{ entreprise_client }} "  {% endif %} placeholder="Entreprise ..." name="entreprise_client">
                 </div>
               </div>
-              <div class="col-sm-3">
+              <!-- <div class="col-sm-3">
                 <div class="form-group">
                   <label>Numéro de l'entrepsie</label>
                   <input type="number" class="form-control" placeholder="Enter ...">
                 </div>
-              </div>
+              </div> -->
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Email de l'entrepsie</label>
-                  <input type="email" class="form-control" placeholder="Enter ...">
+                  <input type="email" class="form-control" {% if edit %} value= " {{ email_client }} "  {% endif %} placeholder="Email ..." name="email_client">
                 </div>
               </div>
             </div>
-            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>Mot de passe</label>
+                  <input type="text"  {% if edit %} class="invisible "{% else %} class="form-control" {% endif %} placeholder="Saisir le mot de passe ..." name="password_client">
+                  <input type="text" class="invisible" {% if edit %} value= " {{ id_client }} "{% endif %}  name="id">
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
               <div class="col-sm-6">
-                <!-- text input -->
                 <div class="form-group">
                   <label>Logo de l'Entreprise</label>
                   <input type="file" class="form-control" placeholder="Enter ...">
                 </div>
               </div>
-            </div>
+            </div> -->
             <div >
                 <button type="submit" class="btn btn-primary">Enregister</button>
             </div>

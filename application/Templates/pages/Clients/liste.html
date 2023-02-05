@@ -29,6 +29,7 @@
             <div class="card">
               <div class="card-header">
                   <a href="{% url 'Client_create' %}" class="btn btn-primary">Ajouter un client</a>
+                  <span class="bg-danger.bg-gradient"> {{ reponse_del_req }} </span>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -42,10 +43,10 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>          
+                  <tbody>
                     {% for element in data %}
                   <tr>
-                   
+
                     <td>{{ element.nom_client}}</td>
                     <td>{{ element.prenom_client}}</td>
                     <td>{{ element.email_client}}</td>
@@ -53,12 +54,12 @@
                     <td>
                       <a href="{% url 'Client_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
                       <a href="{% url 'Client_edit' element.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                      <a href="{% url 'Client_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> 
+                      <a href="{% url 'Client_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   {% endfor %}
                   </tbody>
-                  
+
                 </table>
               </div>
               <!-- /.card-body -->
