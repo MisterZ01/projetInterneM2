@@ -65,7 +65,7 @@
                       </td>
                       <td><span class="badge bg-danger">55%</span></td>
                     </tr>
- 
+
                   </tbody>
                 </table>
               </div>
@@ -81,31 +81,35 @@
       </div><!-- /.container-fluid -->
 
       <div class="card-body">
+        <a href="{% url 'Contrat_create' %}" class="btn btn-primary">Ajouter un Contrat</a>
+        <span class="bg-danger.bg-gradient"> {{ reponse_del_req }} </span>
         <table id="example1" class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>nom du contrat</th>
+              <th>nom du Client</th>
               <th>Date de début</th>
               <th>Date de fin</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>          
+          <tbody>
             {% for element in data %}
           <tr>
-           
+
             <td>{{ element.nom_contrat}}</td>
+            <td>  {{  element.client_id }}  </td>
             <td>{{ element.dateDebut}}</td>
             <td>{{ element.dateFin}}</td>
             <td>
               {% comment %} <a href="{% url 'detail'  %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
-              <a href="{% url 'edit' 1 %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-              <a href="{% url 'delete' 1 %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> {% endcomment %}
+              <a href="{% url 'edit' 1 %}" class="btn btn-success"><i class="fas fa-edit"></i></a>{% endcomment %}
+              <a href="{% url 'Contrat_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
             </td>
           </tr>
           {% endfor %}
           </tbody>
-          
+
         </table>
       </div>
       <!-- /.card-body -->

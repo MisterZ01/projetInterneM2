@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
 
     return render(request, 'index.html')
-# client
+# client ----------------------------------------------------------------------------------------
 def Client_create(request):
     edit=False
     return render(request, 'pages/Clients/creer.html', {'edit':edit})
@@ -82,7 +82,6 @@ def Client_edit(request, id):
     link = "http://127.0.0.1:8000/api/clients/"+str(id)
     reponse = requests.get(link).json()
     edit=True
-    data ={}
     for el in reponse:
         id_client=el["id"]
         nom_client=el["nom_client"]
@@ -105,7 +104,8 @@ def Client_delete(request, id):
     reponse = requests.get("http://127.0.0.1:8000/api/clients").json()
     return render(request, 'pages/Clients/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
 
-# panneaux
+# panneaux ------------------------------------------------------------------------------------
+
 def Panneau_create(request):
 
     return render(request, 'pages/Panneaux/creer.html')
@@ -114,13 +114,65 @@ def Panneau_list(request):
     reponse = requests.get("http://127.0.0.1:8000/api/panneaus").json()
     return render(request, 'pages/Panneaux/liste.html',{'data':reponse})
 
-# contrat
+# contrat --------------------------------------------------------------------------------------
+
 def Contrat_create(request):
     return render(request, 'pages/Contrats/creer.html')
 
 def Contrat_list(request):
     reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
+    # for el in reponse:
+    #     id =el['client_id']
+    # link="http://127.0.0.1:8000/api/clients"+str(id)
+    # link = link.replace(" ","")
+    # infoclient = requests.get(link).json()
+    # for element in infoclient:
+    #     nom_client= element["nom_client"]
+    #     prenom_client= element["prenom_client"]
     return render(request, 'pages/Contrats/liste.html',{'data':reponse})
+
+@csrf_exempt
+def Contrat_store(request):
+    nom_contrat=request.POST['nom_contrat']
+    dateDebut=request.POST['dateDebut']
+    dateFin=request.POST['dateFin']
+
+    # if request.POST['client_id'] !=" ":
+    url ="http://127.0.0.1:8000/api/contrats"
+
+    rep = requests.post(url,data={
+        "nom_contrat":request.POST['nom_contrat'],
+        "dateDebut":request.POST['dateDebut'],
+        "dateFin":request.POST['dateFin'],
+        "client_id" :request.POST['client_id']
+    }).json()
+    print(rep)
+    return render(request, 'pages/Contrats/creer.html')
+    # else:
+    #     id = request.POST['client_id']
+    #     url ="http://127.0.0.1:8000/api/contrats/"+str(id)
+    #     url = url.replace(" ", "")
+    #     Data= {
+
+    #         "nom_contrat":request.POST['nom_contrat'],
+    #         "dateDebut":request.POST['dateDebut'],
+    #         "dateFin":request.POST['dateFin'],
+    #         "client_id" :request.POST['client_id']
+    #     }
+
+    #     rep = requests.put(url,data={
+    #         "nom_contrat":request.POST['nom_contrat'],
+    #         "dateDebut":request.POST['dateDebut'],
+    #         "dateFin":request.POST['dateFin'],
+    #         "client_id" :request.POST['client_id']
+    #     })
+    #     return render(request, 'pages/Contrats/creer.html')
+
+def Contrat_delete(request, id):
+    link = "http://127.0.0.1:8000/api/contrats/"+str(id)
+    reponse_del_req = requests.delete(link).json()
+    reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
+    return render(request, 'pages/Contrats/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
 
 
 # ---------------------------------------------- projet odc test api ----------------------------
