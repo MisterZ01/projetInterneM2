@@ -31,7 +31,6 @@ def Client_store(request):
             "email_client":request.POST['email_client'],
             "entreprise_client":request.POST['entreprise_client'],
             "password_client":request.POST['password_client']
-
         }
 
         requests.post(url,data={
