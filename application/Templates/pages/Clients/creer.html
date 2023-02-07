@@ -11,14 +11,14 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <form action="{% url 'Client_store' %}"  method="POST"  >
+          <form action="{% url 'Client_store' %}"  method="POST" onsubmit="return mafonction()"  >
             {% csrf_token %}
             <div class="row">
               <div class="col-sm-6">
                 <!-- text input -->
                 <div class="form-group">
                   <label>Nom representant</label>
-                  <input type="text" class="form-control" {% if edit %} value= " {{ nom_client }} "  {% endif %} placeholder="nom ..." name="nom_client">
+                  <input id="nom_client" type="text" class="form-control" {% if edit %} value= " {{ nom_client }} "  {% endif %} placeholder="nom ..." name="nom_client">
                 </div>
               </div>
               <div class="col-sm-6">
@@ -76,3 +76,22 @@
   </div>
   <!-- /.content-wrapper -->
   {% endblock content %}
+
+  <script>
+
+    function mafonction(){
+      let item = $('#nom_client').val() ;
+    {% comment %} let token = '{{ csrf_token() }}' {% endcomment %}
+    let data = {
+      _token : token,
+      itm = item
+    }
+    $.post('Client_store', data, function(data, textStatus, xhr)){
+      console.log(data);
+      if(data.status == 'success'){
+        alert(data.message);
+      };
+    };
+    }
+
+  </script>

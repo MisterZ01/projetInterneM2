@@ -20,5 +20,7 @@ urlpatterns = [
     # debut panneau
     path('Panneau/create', views.Panneau_create, name="Panneau_create"),
     path('Panneau/list', views.Panneau_list, name="Panneau_list"),
+    path('Panneau/store', views.Panneau_store, name="Panneau_store"),
+
     path('usageapi', views.usageapi, name="usageapi"),
 ]

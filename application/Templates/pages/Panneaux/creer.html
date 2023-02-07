@@ -11,27 +11,29 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <form>
+          <form  action="{% url 'Panneau_store' %}>
+            {% csrf_token %}
             <div class="row">
               <div class="col-sm-6">
                 <!-- text input -->
                 <div class="form-group">
                   <label>Nom du panneau</label>
-                  <input type="text" class="form-control" placeholder="Entrer nom du contrat ..." name="nom_panneau">
+                  <input type="text" class="form-control" placeholder="Entrer nom du panneau ..." name="nom_panneau">
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Longitude</label>
-                  <input type="date" class="form-control" placeholder="Entrer date debut ..." name="longitude">
+                  <input type="text" class="form-control" placeholder="Entrer longitude ..." name="longitude">
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Latitude</label>
-                  <input type="date" class="form-control" placeholder="Entrer date de fin ..." name="latitude">
+                  <input type="text" class="form-control" placeholder="Entrer latitude ..." name="latitude">
                 </div>
               </div>
+              
             </div>
             <div >
                 <button type="submit" class="btn btn-primary">Enregister</button>

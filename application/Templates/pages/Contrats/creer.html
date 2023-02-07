@@ -12,6 +12,7 @@
         <!-- /.card-header -->
         <div class="card-body">
           <form  action="{% url 'Contrat_store' %}" method="POST" >
+            {% csrf_token %}
             <div class="row">
               <div class="col-sm-6">
                 <!-- text input -->
@@ -37,8 +38,20 @@
               <div class="col-sm-6">
                 <!-- text input -->
                 <div class="form-group">
-                  <label>Nom du client</label>
-                  <input type="text" class="form-control" placeholder="Enter ..." name="client_id">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                  <label>Nom du client *</label>
+                  {% comment %} <input type="text" class="form-control" placeholder="Enter ..." name="client_id"> {% endcomment %}
+                  <select  class="form-control" name="client_id" aria-label="Default select example">
+                    <option selected>Selectionnez le client</option>
+                    {% for element in data %}
+                    <option  value=" {{ element.id}} ">{{ element.nom_client}} {{ element.prenom_client}}</option>
+                    {% endfor %}
+                  </select>
+    
                 </div>
               </div>
             </div>

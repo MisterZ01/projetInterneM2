@@ -21,28 +21,19 @@ def Client_store(request):
     email_client=request.POST['email_client']
     entreprise_client=request.POST['entreprise_client']
 
-    if request.POST['id']==" ":
+    if request.POST['id']=="":
         password_client=request.POST['password_client']
         url ="http://127.0.0.1:8000/api/clients"
-        Data= {
 
-            "nom_client":request.POST['nom_client'],
-            'prenom_client':request.POST['prenom_client'],
-            "email_client":request.POST['email_client'],
-            "entreprise_client":request.POST['entreprise_client'],
-            "password_client":request.POST['password_client']
-        }
-
-        requests.post(url,data={
+        reponse=requests.post(url,data={
             "nom_client":request.POST['nom_client'],
             "prenom_client":request.POST['prenom_client'],
             "email_client":request.POST['email_client'],
             "entreprise_client":request.POST['entreprise_client'],
             "password_client":request.POST['password_client']
-
         })
-
-        return render(request, 'pages/Clients/creer.html')
+        print(reponse)
+        return render(request, 'pages/Clients/creer.html',{'data':reponse})
     else:
         id = request.POST['id']
         url ="http://127.0.0.1:8000/api/clients/"+str(id)
@@ -112,11 +103,31 @@ def Panneau_create(request):
 def Panneau_list(request):
     reponse = requests.get("http://127.0.0.1:8000/api/panneaus").json()
     return render(request, 'pages/Panneaux/liste.html',{'data':reponse})
+@csrf_exempt
+def Panneau_store(request):
+    nom_panneau=request.POST['nom_panneau']
+    latitude=request.POST['latitude']
+    longitude=request.POST['longitude']
+    print(request.POST['client_id'])
+    # if request.POST['client_id'] !=" ":
+    url ="http://127.0.0.1:8000/api/panneaus"
+
+    rep = requests.post(url,data={
+        "nom_panneau":request.POST['nom_panneau'],
+        "latitude":request.POST['latitude'],
+        "longitude":request.POST['longitude'],
+        "client_id" :request.POST['client_id']
+    }).json()
+    print(rep)
+    return render(request, 'pages/Contrats/creer.html')
+    
+
 
 # contrat --------------------------------------------------------------------------------------
 
 def Contrat_create(request):
-    return render(request, 'pages/Contrats/creer.html')
+    reponse = requests.get("http://127.0.0.1:8000/api/clients").json()
+    return render(request, 'pages/Contrats/creer.html',{'data':reponse})
 
 def Contrat_list(request):
     reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
@@ -135,7 +146,7 @@ def Contrat_store(request):
     nom_contrat=request.POST['nom_contrat']
     dateDebut=request.POST['dateDebut']
     dateFin=request.POST['dateFin']
-
+    print(request.POST['client_id'])
     # if request.POST['client_id'] !=" ":
     url ="http://127.0.0.1:8000/api/contrats"
 
