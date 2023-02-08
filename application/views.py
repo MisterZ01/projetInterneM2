@@ -6,8 +6,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 # accueil
 def index(request):
+    nbclienttab = requests.get("http://127.0.0.1:9000/api/clients").json()
+    nbclient = nbclienttab["results"]
 
-    return render(request, 'index.html')
+    nbcontrattab  = requests.get("http://127.0.0.1:9000/api/contrats").json()
+    nbcontrat = nbcontrattab["results"]
+
+    nbpanneautab  = requests.get("http://127.0.0.1:9000/api/panneaus").json()
+    nbpanneau = nbpanneautab["results"]
+
+    return render(request, 'index.html',{'nbclient':nbclient, 'nbcontrat': nbcontrat, 'nbpanneau': nbpanneau })
 # client ----------------------------------------------------------------------------------------
 def Client_create(request):
     edit=False
