@@ -23,4 +23,8 @@ urlpatterns = [
     path('Panneau/store', views.Panneau_store, name="Panneau_store"),
 
     path('usageapi', views.usageapi, name="usageapi"),
+    path('pageTestAjaxt', views.pageTestAjaxt, name="pageTestAjaxt"),
+    path('Ajax_lient_store', views.Ajax_lient_store, name="Ajax_lient_store"),
+    path('Ajax_edit/<int:id>', views.Ajax_edit, name="Ajax_edit"),
+
 ]
