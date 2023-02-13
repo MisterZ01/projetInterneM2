@@ -15,6 +15,7 @@ urlpatterns = [
     path('Contrat/create', views.Contrat_create, name="Contrat_create"),
     path('Contrat/list', views.Contrat_list, name="Contrat_list"),
     path('Contrat/store', views.Contrat_store, name="Contrat_store"),
+    path('Contrat/detail/<int:id>', views.Contrat_detail, name="Contrat_detail"),
     path('Contrat/delete/<int:id>', views.Contrat_delete, name="Contrat_delete"),
 
     # debut panneau

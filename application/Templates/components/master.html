@@ -37,7 +37,7 @@
     {% include 'components/aside.html' %}
     <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src=" {% static 'dist/img/AdminLTELogo.png'%} " alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake"  " alt="AdminLTELogo" height="60" width="60">
   </div>
       <!-- navbar -->
 
@@ -100,6 +100,11 @@
 <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
 <script src="{% static 'datatable-fr.js'%}"></script>
 <script src="{% static 'ajax.js'%}"></script>
+<script src="{% static 'dist/sweetalert.min.js'%}"></script>
+<script>
+  import swal from 'sweetalert';
+
+</script>
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -117,5 +122,20 @@
     });
   });
 </script>
+{% comment %} sweet alerte pour les validations {% endcomment %}
+{% comment %} <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> {% endcomment %}
+
+  {% if messages %}
+    {% for msg in messages %}
+      <script>
+        swal({
+          title: "Opération réussie",
+          text: "{{ msg }}",
+          icon: "success",
+        });
+      </script>
+    {% endfor %}
+  {% endif %}
+
 </body>
 

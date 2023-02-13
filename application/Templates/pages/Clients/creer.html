@@ -56,6 +56,9 @@
                   <input type="text" class="invisible" {% if edit %} value= " {{ id_client }} "{% endif %}  name="id">
                 </div>
               </div>
+              <div class=" text-center justify-content-center bt-5" >
+                  <button type="submit" class="btn btn-primary">{% if edit %} Mettre à jour {% else %}  Enregistrer  {% endif %}</button>
+              </div>
             </div>
             <!-- <div class="row">
               <div class="col-sm-6">
@@ -65,9 +68,6 @@
                 </div>
               </div>
             </div> -->
-            <div >
-                <button type="submit" class="btn btn-primary">Enregister</button>
-            </div>
           </form>
         </div>
         <!-- /.card-body -->

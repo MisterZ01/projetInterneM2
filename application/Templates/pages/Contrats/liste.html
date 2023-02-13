@@ -98,13 +98,15 @@
           <tr>
 
             <td>{{ element.nom_contrat}}</td>
-            <td>  {{  element.client_id }}  </td>
+            <td>  {{  element.nom_client }} {{  element.prenom_client }}  </td>
             <td>{{ element.dateDebut}}</td>
             <td>{{ element.dateFin}}</td>
             <td>
               {% comment %} <a href="{% url 'detail'  %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
               <a href="{% url 'edit' 1 %}" class="btn btn-success"><i class="fas fa-edit"></i></a>{% endcomment %}
-              <a href="{% url 'Contrat_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+              <a href="{% url 'Contrat_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+              <a href="{% url 'Contrat_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> 
+
             </td>
           </tr>
           {% endfor %}
@@ -118,5 +120,35 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+   
+     
+      <script>
+
+        document.getElementById('btnsupp').addEventListener('click', alertsuppression())
+
+          function alertsuppression(){
+            swal({
+              title: "Are you sure ?",
+              text: "Voulez-vous vraiment supprimer ce client ?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                swal("suppresio confirmée, operation en cours...", {
+                  icon: "success",
+                
+                })then(function() {
+                  window.location = "Contrat_delete";
+              });
+              } else {
+                swal("suppression annulée");
+              }
+            });
+          }
+      </script>
+
+ 
 
   {% endblock content %}

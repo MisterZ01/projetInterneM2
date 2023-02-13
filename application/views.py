@@ -2,6 +2,9 @@ from django.shortcuts import render
 import requests, json
 from django.views.decorators.csrf import csrf_exempt
 
+from django.contrib import messages
+
+
 # accueil
 def index(request):
     nbclienttab = requests.get("http://127.0.0.1:9000/api/clients").json()
@@ -38,7 +41,7 @@ def Client_store(request):
             "entreprise_client":request.POST['entreprise_client'],
             "password_client":request.POST['password_client']
         })
-        print(reponse)
+        messages.success(request, " Client enrégistré avec succès ")
         return render(request, 'pages/Clients/creer.html',{'data':reponse})
     else:
         id = request.POST['id']
@@ -62,6 +65,7 @@ def Client_store(request):
             "password_client":request.POST['password_client']
 
         })
+        messages.success(request, " Client modifié avec succès ")
         return render(request, 'pages/Clients/creer.html')
 
 
@@ -99,6 +103,7 @@ def Client_delete(request, id):
     link = "http://127.0.0.1:8000/api/clients/"+str(id)
     reponse_del_req = requests.delete(link).json()
     reponse = requests.get("http://127.0.0.1:8000/api/clients").json()
+    messages.success(request, " Client supprimé avec succès ")
     return render(request, 'pages/Clients/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
 
 # panneaux ------------------------------------------------------------------------------------
@@ -138,14 +143,7 @@ def Contrat_create(request):
 
 def Contrat_list(request):
     reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
-    # for el in reponse:
-    #     id =el['client_id']
-    # link="http://127.0.0.1:8000/api/clients"+str(id)
-    # link = link.replace(" ","")
-    # infoclient = requests.get(link).json()
-    # for element in infoclient:
-    #     nom_client= element["nom_client"]
-    #     prenom_client= element["prenom_client"]
+    print(reponse)
     return render(request, 'pages/Contrats/liste.html',{'data':reponse})
 
 @csrf_exempt
@@ -163,7 +161,7 @@ def Contrat_store(request):
         "dateFin":request.POST['dateFin'],
         "client_id" :request.POST['client_id']
     }).json()
-    print(rep)
+    messages.success(request, " Contrat enrégistré avec succès ")
     return render(request, 'pages/Contrats/creer.html')
     # else:
     #     id = request.POST['client_id']
@@ -189,7 +187,14 @@ def Contrat_delete(request, id):
     link = "http://127.0.0.1:8000/api/contrats/"+str(id)
     reponse_del_req = requests.delete(link).json()
     reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
+    messages.success(request, " Contrat supprimé avec succès ")
     return render(request, 'pages/Contrats/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
+
+def Contrat_detail(request, id):
+    link = "http://127.0.0.1:8000/api/contrats/"+str(id)
+    reponse = requests.get(link).json()
+    print(reponse)
+    return render(request, 'pages/Contrats/detail.html', {'data':reponse})
 
 
 # ---------------------------------------------- projet odc test api ----------------------------
