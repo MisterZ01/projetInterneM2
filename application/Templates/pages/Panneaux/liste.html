@@ -38,7 +38,7 @@
                       <th>nom du panneau</th>
                       <th>Longitude</th>
                       <th>Latiude</th>
-                      <th>Entreprise ayant louée</th>
+                      <th>Non du contrat</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -48,12 +48,12 @@
                    
                     <td>{{ element.nom_panneau}}</td>
                     <td>{{ element.longitude}}</td>
-                    <td>{{ element.latidude}}</td>
-                    <td>Client ID : {{ element.contrat_id}}</td>
+                    <td>{{ element.latitude}}</td>
+                    <td>{{ element.nom_contrat}}</td>
                     <td>
-                      {% comment %} <a href="{% url 'detail'  %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
-                      <a href="{% url 'edit' 1 %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                      <a href="{% url 'delete' 1 %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> {% endcomment %}
+                      <a href="{% url 'Panneau_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                      <a href="{% url 'Panneau_edit' element.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                      <a href="{% url 'Panneau_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
                     </td>
                   </tr>
                   {% endfor %}

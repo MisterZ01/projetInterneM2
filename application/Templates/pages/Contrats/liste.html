@@ -102,11 +102,9 @@
             <td>{{ element.dateDebut}}</td>
             <td>{{ element.dateFin}}</td>
             <td>
-              {% comment %} <a href="{% url 'detail'  %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
-              <a href="{% url 'edit' 1 %}" class="btn btn-success"><i class="fas fa-edit"></i></a>{% endcomment %}
               <a href="{% url 'Contrat_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+              <a href="{% url 'Contrat_edit' element.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
               <a href="{% url 'Contrat_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> 
-
             </td>
           </tr>
           {% endfor %}

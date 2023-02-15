@@ -7,37 +7,37 @@
     <!-- Content Header (Page header) -->
     <div class="card card-info">
         <div class="card-header">
-          <h3 class="card-title">Enregistrement d'un panneau</h3>
+          <h3 class="card-title">{% if edit %} Mise à jour d'un panneau {% else %}  Enregistrement d'un panneau  {% endif %}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <form  action="{% url 'Panneau_store' %}>
+          <form  action="{% url 'Panneau_store' %}">
             {% csrf_token %}
             <div class="row">
               <div class="col-sm-6">
                 <!-- text input -->
                 <div class="form-group">
                   <label>Nom du panneau</label>
-                  <input type="text" class="form-control" placeholder="Entrer nom du panneau ..." name="nom_panneau">
+                  <input type="text" class="form-control" placeholder="Entrer nom du panneau ..." {% if edit %} value= "{{nom_panneau}}"{% endif %} name="nom_panneau">
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Longitude</label>
-                  <input type="text" class="form-control" placeholder="Entrer longitude ..." name="longitude">
+                  <input type="text" class="form-control" placeholder="Entrer longitude ..." {% if edit %} value= "{{longitude}}"{% endif %} name="longitude">
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Latitude</label>
-                  <input type="text" class="form-control" placeholder="Entrer latitude ..." name="latitude">
+                  <input type="text" class="form-control" placeholder="Entrer latitude ..." {% if edit %} value= "{{ latitude }}"{% endif %} name="latitude">
                 </div>
               </div>
-              
+              <input type="text" class="invisible" {% if edit %} value="{{id_panneau}}"{% endif %}  name="id_panneau">
             </div>
-            <div >
-                <button type="submit" class="btn btn-primary">Enregister</button>
-              </div>
+            <div class=" text-center justify-content-center bt-5">
+              <button type="submit" class="btn btn-primary">{% if edit %} Mettre à jour {% else %}  Enregistrer  {% endif %}</button>
+            </div>
           </form>
         </div>
         <!-- /.card-body -->

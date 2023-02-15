@@ -15,6 +15,7 @@ urlpatterns = [
     path('Contrat/create', views.Contrat_create, name="Contrat_create"),
     path('Contrat/list', views.Contrat_list, name="Contrat_list"),
     path('Contrat/store', views.Contrat_store, name="Contrat_store"),
+    path('contrat/edit/<int:id>', views.Contrat_edit, name="Contrat_edit"),
     path('Contrat/detail/<int:id>', views.Contrat_detail, name="Contrat_detail"),
     path('Contrat/delete/<int:id>', views.Contrat_delete, name="Contrat_delete"),
 
@@ -22,6 +23,10 @@ urlpatterns = [
     path('Panneau/create', views.Panneau_create, name="Panneau_create"),
     path('Panneau/list', views.Panneau_list, name="Panneau_list"),
     path('Panneau/store', views.Panneau_store, name="Panneau_store"),
+    path('Panneau/edit/<int:id>', views.Panneau_edit, name="Panneau_edit"),
+    path('Panneau/detail/<int:id>', views.Panneau_detail, name="Panneau_detail"),
+    path('Panneau/delete/<int:id>', views.Panneau_delete, name="Panneau_delete"),
+
 
     path('usageapi', views.usageapi, name="usageapi"),
     path('pageTestAjaxt', views.pageTestAjaxt, name="pageTestAjaxt"),

@@ -47,15 +47,6 @@ def Client_store(request):
         id = request.POST['id']
         url ="http://127.0.0.1:8000/api/clients/"+str(id)
         url = url.replace(" ", "")
-        Data= {
-
-            "nom_client":request.POST['nom_client'],
-            'prenom_client':request.POST['prenom_client'],
-            "email_client":request.POST['email_client'],
-            "entreprise_client":request.POST['entreprise_client'],
-            "password_client":request.POST['password_client']
-
-        }
 
         rep = requests.put(url,data={
             "nom_client":request.POST['nom_client'],
@@ -106,6 +97,7 @@ def Client_delete(request, id):
     messages.success(request, " Client supprimé avec succès ")
     return render(request, 'pages/Clients/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
 
+
 # panneaux ------------------------------------------------------------------------------------
 
 def Panneau_create(request):
@@ -117,22 +109,68 @@ def Panneau_list(request):
     return render(request, 'pages/Panneaux/liste.html',{'data':reponse})
 @csrf_exempt
 def Panneau_store(request):
-    nom_panneau=request.POST['nom_panneau']
-    latitude=request.POST['latitude']
-    longitude=request.POST['longitude']
-    print(request.POST['client_id'])
-    # if request.POST['client_id'] !=" ":
-    url ="http://127.0.0.1:8000/api/panneaus"
 
-    rep = requests.post(url,data={
-        "nom_panneau":request.POST['nom_panneau'],
-        "latitude":request.POST['latitude'],
-        "longitude":request.POST['longitude'],
-        "client_id" :request.POST['client_id']
-    }).json()
-    print(rep)
-    return render(request, 'pages/Contrats/creer.html')
-    
+    if request.GET['id_panneau']=="":
+        url ="http://127.0.0.1:8000/api/panneaus"
+        requests.GET(url,data={
+            "nom_panneau" :request.GET['nom_panneau'],
+            "latitude" :request.GET['latitude'],
+            "longitude" :request.GET['longitude']
+        })
+        messages.success(request, " Client enrégistré avec succès ")
+        return render(request, 'pages/Panneaux/creer.html')
+    else:
+        id = request.GET['id_panneau']
+        url ="http://127.0.0.1:8000/api/panneaus/"+str(id)
+        url = url.replace(" ", "")
+        requests.put(url, data={
+            "nom_panneau" :request.GET['nom_panneau'],
+            "latitude" :request.GET['latitude'],
+            "longitude" :request.GET['longitude']
+
+        })
+        messages.success(request, " Panneau modifié avec succès ")
+        reponse=requests.get("http://127.0.0.1:8000/api/panneaus").json()
+        return render(request, 'pages/Panneaux/liste.html',{'data':reponse})
+
+
+        
+
+def Panneau_detail(request, id):
+    link = "http://127.0.0.1:8000/api/panneaus/"+str(id)
+    reponse = requests.get(link).json()
+    return render(request, 'pages/Panneaux/detail.html', {'data':reponse})
+
+def Panneau_edit(request, id):
+    link = "http://127.0.0.1:8000/api/panneaus/"+str(id)
+    reponse = requests.get(link).json()
+    edit=True
+    for el in reponse:
+        id_panneau=el["id"]
+        nom_panneau=el["nom_panneau"]
+        longitude=el["longitude"]
+        latitude=el["latitude"]
+        # entreprise_Panneau=el["entreprise_Panneau"]
+    # data = {nom_panneau, prenom_panneau,email_Panneau,entreprise_Panneau}
+    return render(request, 'pages/Panneaux/creer.html', {
+                                                        'edit':edit,
+                                                        'id_panneau':id_panneau,
+                                                        'nom_panneau':nom_panneau,
+                                                        'longitude':longitude,
+                                                        'latitude':latitude
+                                                        
+                                                        })
+
+def Panneau_delete(request, id):
+    link = "http://127.0.0.1:8000/api/panneaus/"+str(id)
+    print(link)
+    reponse_del_req = requests.delete(link).json()
+    print(reponse_del_req)
+    reponse = requests.get("http://127.0.0.1:8000/api/panneaus").json()
+    print(reponse)
+    messages.success(request, " Panneau supprimé avec succès ")
+    return render(request, 'pages/Panneaux/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
+
 
 
 # contrat --------------------------------------------------------------------------------------
@@ -151,37 +189,31 @@ def Contrat_store(request):
     nom_contrat=request.POST['nom_contrat']
     dateDebut=request.POST['dateDebut']
     dateFin=request.POST['dateFin']
-    print(request.POST['client_id'])
-    # if request.POST['client_id'] !=" ":
-    url ="http://127.0.0.1:8000/api/contrats"
+    print(request.POST['id_contrat'])
+    if request.POST['id_contrat'] =="":
+        url ="http://127.0.0.1:8000/api/contrats"
 
-    rep = requests.post(url,data={
-        "nom_contrat":request.POST['nom_contrat'],
-        "dateDebut":request.POST['dateDebut'],
-        "dateFin":request.POST['dateFin'],
-        "client_id" :request.POST['client_id']
-    }).json()
-    messages.success(request, " Contrat enrégistré avec succès ")
-    return render(request, 'pages/Contrats/creer.html')
-    # else:
-    #     id = request.POST['client_id']
-    #     url ="http://127.0.0.1:8000/api/contrats/"+str(id)
-    #     url = url.replace(" ", "")
-    #     Data= {
-
-    #         "nom_contrat":request.POST['nom_contrat'],
-    #         "dateDebut":request.POST['dateDebut'],
-    #         "dateFin":request.POST['dateFin'],
-    #         "client_id" :request.POST['client_id']
-    #     }
-
-    #     rep = requests.put(url,data={
-    #         "nom_contrat":request.POST['nom_contrat'],
-    #         "dateDebut":request.POST['dateDebut'],
-    #         "dateFin":request.POST['dateFin'],
-    #         "client_id" :request.POST['client_id']
-    #     })
-    #     return render(request, 'pages/Contrats/creer.html')
+        rep = requests.post(url,data={
+            "nom_contrat":request.POST['nom_contrat'],
+            "dateDebut":request.POST['dateDebut'],
+            "dateFin":request.POST['dateFin'],
+            "client_id" :request.POST['client_id']
+        }).json()
+        messages.success(request, " Contrat enrégistré avec succès ")
+        return render(request, 'pages/Contrats/creer.html')
+    else:
+        id = request.POST['id_contrat']
+        url ="http://127.0.0.1:8000/api/contrats/"+str(id)
+        url = url.replace(" ", "")
+        requests.put(url,data={
+            "nom_contrat":request.POST['nom_contrat'],
+            "dateDebut":request.POST['dateDebut'],
+            "dateFin":request.POST['dateFin'],
+            "client_id" :request.POST['client_id']
+        })
+        messages.success(request, " Contrat modifié avec succès ")
+        reponse=requests.get("http://127.0.0.1:8000/api/contrats").json()
+        return render(request, 'pages/Contrats/liste.html', {'data': reponse})
 
 def Contrat_delete(request, id):
     link = "http://127.0.0.1:8000/api/contrats/"+str(id)
@@ -193,8 +225,27 @@ def Contrat_delete(request, id):
 def Contrat_detail(request, id):
     link = "http://127.0.0.1:8000/api/contrats/"+str(id)
     reponse = requests.get(link).json()
-    print(reponse)
     return render(request, 'pages/Contrats/detail.html', {'data':reponse})
+
+def Contrat_edit(request, id):
+    link = "http://127.0.0.1:8000/api/contrats/"+str(id)
+    reponse = requests.get(link).json()
+    clients = requests.get("http://127.0.0.1:8000/api/clients").json()
+    edit=True
+    for el in reponse:
+        id_contrat=el["id"]
+        nom_contrat=el["nom_contrat"]
+        dateDebut=el["dateDebut"]
+        dateFin=el["dateFin"]
+    # data = {nom_contrat, dateDebut,dateFin,entreprise_client}
+    return render(request, 'pages/Contrats/creer.html', {
+                                                        'edit':edit,
+                                                        'id_contrat':id_contrat,
+                                                        'nom_contrat':nom_contrat,
+                                                        'dateDebut':dateDebut,
+                                                        'dateFin':dateFin,
+                                                        'data':clients
+                                                        })
 
 
 # ---------------------------------------------- projet odc test api ----------------------------

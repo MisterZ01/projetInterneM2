@@ -7,7 +7,7 @@
     <!-- Content Header (Page header) -->
     <div class="card card-info">
         <div class="card-header">
-          <h3 class="card-title">Enregistrement d'un Contrat</h3>
+          <h3 class="card-title">{% if edit %} Mise à jour d'un contrat {% else %}  Enregistrement d'un contrat  {% endif %}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -18,19 +18,19 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label>Nom du contrat</label>
-                  <input type="text" class="form-control" placeholder="Entrer nom du contrat ..." name="nom_contrat">
+                  <input type="text" class="form-control"  {% if edit %} value= " {{ nom_contrat }} "  {% endif %} placeholder="Entrer nom du contrat ..." name="nom_contrat">
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Date de debut</label>
-                  <input type="date" class="form-control" placeholder="Entrer date debut ..." name="dateDebut">
+                  <input type="date" class="form-control"  {% if edit %} value="{{dateDebut}}"  {% endif %}placeholder="Entrer date debut ..." name="dateDebut">
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Date de fin</label>
-                  <input type="date" class="form-control" placeholder="Entrer date de fin ..." name="dateFin">
+                  <input type="date" class="form-control"  {% if edit %} value="{{dateFin}}"  {% endif %} placeholder="Entrer date de fin ..." name="dateFin">
                 </div>
               </div>
             </div>
@@ -48,16 +48,16 @@
                   <select  class="form-control" name="client_id" aria-label="Default select example">
                     <option selected>Selectionnez le client</option>
                     {% for element in data %}
-                    <option  value=" {{ element.id}} ">{{ element.nom_client}} {{ element.prenom_client}}</option>
+                    <option  value=" {{ element.id }} ">{{ element.nom_client}} {{ element.prenom_client}}</option>
                     {% endfor %}
                   </select>
-    
+                  <input type="text" class="invisible" {% if edit %} value= " {{ id_contrat }} "{% endif %}  name="id_contrat">
                 </div>
               </div>
             </div>
-            <div >
-                <button type="submit" class="btn btn-primary">Enregister</button>
-              </div>
+            <div class=" text-center justify-content-center bt-5">
+              <button type="submit" class="btn btn-primary">{% if edit %} Mettre à jour {% else %}  Enregistrer  {% endif %}</button>
+            </div>
           </form>
         </div>
         <!-- /.card-body -->
