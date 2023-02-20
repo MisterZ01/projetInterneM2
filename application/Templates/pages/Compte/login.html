@@ -1,4 +1,212 @@
-{% extends 'components/master.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf_token" content="{{ csrf_token }}">
+  <title>GestiPan</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href=" {% static 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'%} ">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href=" {% static 'plugins/fontawesome-free/css/all.min.css'%} ">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href=" {% static 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'%} ">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href=" {% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'%} ">
+  <!-- iCheck -->
+  <link rel="stylesheet" href=" {% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css'%} ">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href=" {% static 'plugins/jqvmap/jqvmap.min.css'%} ">
+  <!-- Theme style -->
+  <link rel="stylesheet" href=" {% static 'dist/css/adminlte.min.css'%} ">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href=" {% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css'%} ">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href=" {% static 'plugins/daterangepicker/daterangepicker.css'%} ">
+  <!-- summernote -->
+  <link rel="stylesheet" href=" {% static 'plugins/summernote/summernote-bs4.min.css'%} ">
+   <!-- DataTables -->
+   <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
+   <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}">
+   <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    {% include 'components/navbar-login.html' %}
+     {% comment %}
+    {% include 'components/aside.html' %}
+    <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake"  " alt="AdminLTELogo" height="60" width="60" >
+  </div>
+      <!-- navbar -->
+ {% endcomment %}
+
+        <!-- content -->
+    {% block content %}
+    <section class="vh-100" style="background-color: #9A616D;">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-10">
+            <div class="card" style="border-radius: 1rem;">
+              <div class="row g-0">
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                  <img src="https://blog.reedexpo.fr/wp-content/uploads/2021/03/affiche-publicitaire-980x654.jpg"
+                    alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                  <img src="https://img.freepik.com/psd-premium/maquette-panneaux-affichage-miami_23-2149134516.jpg?w=2000"
+                    alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                </div>
+                <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                  <div class="card-body p-4 p-lg-5 text-black">
+    
+                    <form method="POST" action="{% url 'login' %}">
+                      {% csrf_token %}
+                      <div class="d-flex align-items-center mb-3 pb-1">
+                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                        <span class="h1 fw-bold mb-0">GESTIPAN</span>
+                      </div>
+    
+                      <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Connectez-vous avotre compte</h5>
+    
+                      <div class="form-outline mb-4">
+                        <input type="text" id="form2Example17" class="form-control form-control-lg" name="username"/>
+                        <label class="form-label" for="form2Example17">Nom d'utilsateur</label>
+                      </div>
+    
+                      <div class="form-outline mb-4">
+                        <input type="password" id="form2Example27" class="form-control form-control-lg" name="password"/>
+                        <label class="form-label" for="form2Example27">Mot de passe</label>
+                      </div>
+    
+                      <div class="pt-1 mb-4">
+                        <button class="btn btn-dark btn-lg btn-block" type="submit">Connexion</button>
+                      </div>
+    
+                      <a class="small text-muted" href="#!">Mot de passe oulié ?</a>
+                      <p class="mb-5 pb-lg-2" style="color: #393f81;">Vous n'avez pas de compte ? <a href="#!"
+                          style="color: #393f81;">Créez votre compte</a></p>
+                      {% comment %} <a href="#!" class="small text-muted">Terms of use.</a>
+                      <a href="#!" class="small text-muted">Privacy policy</a> {% endcomment %}
+                    </form>
+    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    {% endblock %}
+        <!-- footer -->
+    {% include 'components/footer.html' %}
+
+
+
+
+<!-- jQuery -->
+<script src=" {% static 'plugins/jquery/jquery.min.js'%} "></script>
+<!-- jQuery UI 1.11.4 -->
+<script src=" {% static 'plugins/jquery-ui/jquery-ui.min.js'%} "></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src=" {% static 'plugins/bootstrap/js/bootstrap.bundle.min.js'%} "></script>
+<!-- ChartJS -->
+<script src=" {% static 'plugins/chart.js/Chart.min.js'%} "></script>
+<!-- Sparkline -->
+<script src=" {% static 'plugins/sparklines/sparkline.js'%} "></script>
+<!-- JQVMap -->
+<script src=" {% static 'plugins/jqvmap/jquery.vmap.min.js'%} "></script>
+<script src=" {% static 'plugins/jqvmap/maps/jquery.vmap.usa.js'%} "></script>
+<!-- jQuery Knob Chart -->
+<script src=" {% static 'plugins/jquery-knob/jquery.knob.min.js'%} "></script>
+<!-- daterangepicker -->
+<script src=" {% static 'plugins/moment/moment.min.js'%} "></script>
+<script src=" {% static 'plugins/daterangepicker/daterangepicker.js'%} "></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src=" {% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'%} "></script>
+<!-- Summernote -->
+<script src=" {% static 'plugins/summernote/summernote-bs4.min.js'%} "></script>
+<!-- overlayScrollbars -->
+<script src=" {% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js'%} "></script>
+<!-- AdminLTE App -->
+<script src=" {% static 'dist/js/adminlte.js'%} "></script>
+<!-- AdminLTE for demo purposes -->
+{% comment %} <script src=" {% static 'dist/js/demo.js'%} "></script> {% endcomment %}
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src=" {% static 'dist/js/pages/dashboard.js'%} "></script>
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
+<script src="{% static 'datatable-fr.js'%}"></script>
+<script src="{% static 'ajax.js'%}"></script>
+<script src="{% static 'dist/sweetalert.min.js'%}"></script>
+<script>
+  import swal from 'sweetalert';
+
+</script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+{% comment %} sweet alerte pour les validations {% endcomment %}
+{% comment %} <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> {% endcomment %}
+
+  {% if messages %}
+    {% for msg in messages %}
+      <script>
+        swal({
+          title: "Opération réussie",
+          text: "{{ msg }}",
+          icon: "success",
+        });
+      </script>
+    {% endfor %}
+  {% endif %}
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'components/master.html' %}
 {% load static %}
 
 {% block content %}
@@ -46,4 +254,4 @@
     </div>
   </div>
   <!-- /.content-wrapper -->
-{% endblock content %}
+{% endblock content %} {% endcomment %}

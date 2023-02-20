@@ -63,7 +63,7 @@ def Client_store(request):
             "password_client":request.POST['password_client']
         })
         messages.success(request, " Client enrégistré avec succès ")
-        return render(request, 'pages/Clients/creer.html',{'data':reponse})
+        return redirect('Client_list')
     else:
         id = request.POST['id']
         url ="http://127.0.0.1:8000/api/clients/"+str(id)
@@ -78,7 +78,7 @@ def Client_store(request):
 
         })
         messages.success(request, " Client modifié avec succès ")
-        return render(request, 'pages/Clients/creer.html')
+        return redirect('Client_create')
 
 
 def Client_list(request):
@@ -116,7 +116,7 @@ def Client_delete(request, id):
     reponse_del_req = requests.delete(link).json()
     reponse = requests.get("http://127.0.0.1:8000/api/clients").json()
     messages.success(request, " Client supprimé avec succès ")
-    return render(request, 'pages/Clients/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
+    return redirect('Client_list')
 
 
 # panneaux ------------------------------------------------------------------------------------
@@ -195,14 +195,29 @@ def Panneau_delete(request, id):
 
 
 # contrat --------------------------------------------------------------------------------------
-
+from datetime import datetime, date
 def Contrat_create(request):
     reponse = requests.get("http://127.0.0.1:8000/api/clients").json()
     return render(request, 'pages/Contrats/creer.html',{'data':reponse})
 
 def Contrat_list(request):
     reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
-    print(reponse)
+    tableauDeDate=[]
+    for el in reponse:
+        debut  = el['dateDebut']
+        fin  = el['dateFin']
+        debut = datetime.strptime(debut, '%Y-%m-%d')
+        fin = datetime.strptime(fin, '%Y-%m-%d')
+        r=datetime.now()
+        today = r.strftime("%Y-%m-%d")
+        # le nombre de jours jusqu'a aujourd'hui
+        consommer = r - debut
+        # le nombre de joyr total de diffusion 
+        difference = fin - debut
+        el['duree']=difference.days
+        el['pourcentage']=(consommer.days*100)/difference.days
+        tableauDeDate.append(difference)
+    # print(reponse[0]['duree'])
     return render(request, 'pages/Contrats/liste.html',{'data':reponse})
 
 @csrf_exempt
@@ -213,15 +228,15 @@ def Contrat_store(request):
     print(request.POST['id_contrat'])
     if request.POST['id_contrat'] =="":
         url ="http://127.0.0.1:8000/api/contrats"
-
         rep = requests.post(url,data={
             "nom_contrat":request.POST['nom_contrat'],
             "dateDebut":request.POST['dateDebut'],
             "dateFin":request.POST['dateFin'],
             "client_id" :request.POST['client_id']
         }).json()
+        print(rep)
         messages.success(request, " Contrat enrégistré avec succès ")
-        return render(request, 'pages/Contrats/creer.html')
+        return redirect('Contrat_create')
     else:
         id = request.POST['id_contrat']
         url ="http://127.0.0.1:8000/api/contrats/"+str(id)
@@ -233,15 +248,15 @@ def Contrat_store(request):
             "client_id" :request.POST['client_id']
         })
         messages.success(request, " Contrat modifié avec succès ")
-        reponse=requests.get("http://127.0.0.1:8000/api/contrats").json()
-        return render(request, 'pages/Contrats/liste.html', {'data': reponse})
+        # reponse=requests.get("http://127.0.0.1:8000/api/contrats").json()
+        return redirect('Contrat_list')
 
 def Contrat_delete(request, id):
     link = "http://127.0.0.1:8000/api/contrats/"+str(id)
     reponse_del_req = requests.delete(link).json()
     reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
     messages.success(request, " Contrat supprimé avec succès ")
-    return render(request, 'pages/Contrats/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
+    return redirect('Contrat_list')
 
 def Contrat_detail(request, id):
     link = "http://127.0.0.1:8000/api/contrats/"+str(id)

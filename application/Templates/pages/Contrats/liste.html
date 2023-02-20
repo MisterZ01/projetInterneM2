@@ -30,42 +30,53 @@
               <div class="card-header">
                 <h3 class="card-title">Liste des contrats et leur progression</h3>
                 <div class="card-tools">
-                  <ul class="pagination pagination-sm float-right">
+                  {% comment %} <ul class="pagination pagination-sm float-right">
                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                     <li class="page-item"><a class="page-link" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                  </ul>
+                  </ul> {% endcomment %}
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
-                <table class="table">
+                <table class="table" id="example1" > 
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Nom du contrat</th>
+                      <th>Nom du client</th>
                       <th>Date de debut</th>
                       <th>Date de fin</th>
                       <th>Progression</th>
                       <th style="width: 40px">Pourcentage</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for element in data %}
                     <tr>
                       <td>1</td>
-                      <td>Contrat Coulibaly</td>
-                      <td><span class="badge bg-danger">10/10/2020</span></td>
-                      <td><span class="badge bg-success">10/10/2023</span></td>
+                      <td>{{  element.nom_contrat }}</td>
+                      <td>{{  element.nom_client }} {{  element.prenom_client }} </td>
+                      <td><span class="badge bg-danger">{{ element.dateDebut}}</span></td>
+                      <td><span class="badge bg-success">{{ element.dateFin}}</span></td>
                       <td>
                         <div class="progress progress-xs">
                           <div class="progress-bar progress-bar-danger" style="width: 75%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-danger">75%</span></td>
+                      <td><span class="badge bg-danger">{{ element.pourcentage }}%</span></td>
+                      <td>
+                          <a href="{% url 'Contrat_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                          <a href="{% url 'Contrat_edit' element.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                          <a href="{% url 'Contrat_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                      </td>
                     </tr>
-                    <tr>
+                    {% endfor %}
+
+                    {% comment %} <tr>
                       <td>2</td>
                       <td>Contrat Ouattara</td>
                       <td><span class="badge bg-danger">01/01/2023</span></td>
@@ -88,7 +99,7 @@
                         </div>
                       </td>
                       <td><span class="badge bg-danger">97%</span></td>
-                    </tr>
+                    </tr> {% endcomment %}
 
                   </tbody>
                 </table>
@@ -104,7 +115,7 @@
         </div>
       </div><!-- /.container-fluid -->
 
-      <div class="card-body">
+      {% comment %} <div class="card-body">
         <div class="col-sm-6">
           <h2>Liste des Contrats</h2>
         </div>
@@ -117,6 +128,7 @@
               <th>nom du Client</th>
               <th>Date de début</th>
               <th>Date de fin</th>
+              <th>Diff</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -127,7 +139,8 @@
             <td>{{ element.nom_contrat}}</td>
             <td>  {{  element.nom_client }} {{  element.prenom_client }}  </td>
             <td>{{ element.dateDebut}}</td>
-            <td>{{ element.dateFin}}</td>
+            <td>{{ element.dateFin }}</td>
+            <td>{{ element.duree }}</td>
             <td>
               <a href="{% url 'Contrat_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
               <a href="{% url 'Contrat_edit' element.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
@@ -138,7 +151,7 @@
           </tbody>
 
         </table>
-      </div>
+      </div> {% endcomment %}
       <!-- /.card-body -->
 
     </section>
