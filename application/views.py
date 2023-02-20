@@ -1,8 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests, json
 from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm
+
+
+
+# connexion et deconnexion
+
+def loginpage(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user =authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            redirect('login')
+
+    return render(request, 'Pages/Compte/login.html')
+
 
 
 # accueil
@@ -134,7 +155,7 @@ def Panneau_store(request):
         return render(request, 'pages/Panneaux/liste.html',{'data':reponse})
 
 
-        
+
 
 def Panneau_detail(request, id):
     link = "http://127.0.0.1:8000/api/panneaus/"+str(id)
@@ -158,7 +179,7 @@ def Panneau_edit(request, id):
                                                         'nom_panneau':nom_panneau,
                                                         'longitude':longitude,
                                                         'latitude':latitude
-                                                        
+
                                                         })
 
 def Panneau_delete(request, id):

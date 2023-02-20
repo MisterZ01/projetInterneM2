@@ -3,6 +3,7 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path('login', views.loginpage, name="login"),
     # debut client
     path('Client/create', views.Client_create, name="Client_create"),
     path('Client/store', views.Client_store, name="Client_store"),

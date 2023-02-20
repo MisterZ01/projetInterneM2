@@ -54,16 +54,40 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1.</td>
-                      <td>Update software</td>
-                      <td><span class="badge bg-danger">10/10/2023</span></td>
-                      <td><span class="badge bg-danger">10/10/2024</span></td>
+                      <td>1</td>
+                      <td>Contrat Coulibaly</td>
+                      <td><span class="badge bg-danger">10/10/2020</span></td>
+                      <td><span class="badge bg-success">10/10/2023</span></td>
                       <td>
                         <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                          <div class="progress-bar progress-bar-danger" style="width: 75%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-danger">55%</span></td>
+                      <td><span class="badge bg-danger">75%</span></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Contrat Ouattara</td>
+                      <td><span class="badge bg-danger">01/01/2023</span></td>
+                      <td><span class="badge bg-success">15/12/2023</span></td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar progress-bar-success" style="width: 20%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-success">20%</span></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Contrat Yechi</td>
+                      <td><span class="badge bg-danger">01/01/2022</span></td>
+                      <td><span class="badge bg-success">01/03/2023</span></td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar progress-bar-danger" style="width: 97%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-danger">97%</span></td>
                     </tr>
 
                   </tbody>
@@ -81,6 +105,9 @@
       </div><!-- /.container-fluid -->
 
       <div class="card-body">
+        <div class="col-sm-6">
+          <h2>Liste des Contrats</h2>
+        </div>
         <a href="{% url 'Contrat_create' %}" class="btn btn-primary">Ajouter un Contrat</a>
         <span class="bg-danger.bg-gradient"> {{ reponse_del_req }} </span>
         <table id="example1" class="table table-bordered table-striped">
@@ -104,7 +131,7 @@
             <td>
               <a href="{% url 'Contrat_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
               <a href="{% url 'Contrat_edit' element.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-              <a href="{% url 'Contrat_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a> 
+              <a href="{% url 'Contrat_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
             </td>
           </tr>
           {% endfor %}
@@ -118,8 +145,8 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-   
-     
+
+
       <script>
 
         document.getElementById('btnsupp').addEventListener('click', alertsuppression())
@@ -136,7 +163,7 @@
               if (willDelete) {
                 swal("suppresio confirmée, operation en cours...", {
                   icon: "success",
-                
+
                 })then(function() {
                   window.location = "Contrat_delete";
               });
@@ -147,6 +174,6 @@
           }
       </script>
 
- 
+
 
   {% endblock content %}
