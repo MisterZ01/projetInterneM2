@@ -114,34 +114,29 @@ function initMap() {
             return Response.json();
           })
           .then(panneaus => {
-            
+            alert(panneaus.length)
             let panneaux = JSON.stringify(panneaus);
-            
                                 // The location of Uluru , , 
                                 const ODC = {  lat: 5.331358327034493, lng: -3.968829528741533};
                                 // The map, centered at Uluru
                                 const map = new google.maps.Map(document.getElementById("map"), {
-                                  zoom: 11,
+                                  zoom: 8,
                                   center: ODC,
                                 });
                                 // The marker, positioned at Uluru
-                                panneaux.forEach(pointeur);
-                                function pointeur(pan){
-                                
-                                  point = {  lat: pan['latitude'], lng:  pan['longitude']};
-                                  const marker = new google.maps.Marker({
-                                    position: point,
-                                    map: map,
-                                  });
-                                } //fin du fort
+                            
+                                const latLng = new google.maps.LatLng(panneaus[0]['latitude'],panneaus[0]['longitude']);
+                               
+                                new google.maps.Marker({
+                                  position: latLng,
+                                  map: map,
+                                });
+                               
                                 
                               });
                             
 }
-
-
-
-window.initMap = initMap;
+window.initMap = initMap; 
 
 
 </script>
