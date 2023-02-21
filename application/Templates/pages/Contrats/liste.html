@@ -57,17 +57,17 @@
                   <tbody>
                     {% for element in data %}
                     <tr>
-                      <td>1</td>
+                      <td>{{  element.id }}</td>
                       <td>{{  element.nom_contrat }}</td>
                       <td>{{  element.nom_client }} {{  element.prenom_client }} </td>
-                      <td><span class="badge bg-danger">{{ element.dateDebut}}</span></td>
-                      <td><span class="badge bg-success">{{ element.dateFin}}</span></td>
+                      <td><span class="badge bg-secondary">{{ element.dateDebut}}</span></td>
+                      <td><span class="badge bg-info">{{ element.dateFin}}</span></td>
                       <td>
                         <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 75%"></div>
+                          <div  class="progress-bar progress-bar-danger" style="width:{{element.pourcentage}}%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-danger">{{ element.pourcentage }}%</span></td>
+                      <td><span {% if element.pourcentage < 50   %} class="badge bg-success" {% elif element.pourcentage < 90  %} class="badge bg-warning" {% else %}   class="badge bg-danger"   {% endif %} >{{ element.pourcentage }}%</span></td>
                       <td>
                           <a href="{% url 'Contrat_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
                           <a href="{% url 'Contrat_edit' element.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>

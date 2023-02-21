@@ -35,6 +35,20 @@
               </div>
               <input type="text" class="invisible" {% if edit %} value="{{id_panneau}}"{% endif %}  name="id_panneau">
             </div>
+            <div class="col-sm-6">
+              <!-- text input -->
+              <div class="form-group">
+                <label>Nom du Contrat *</label>
+                {% comment %} <input type="text" class="form-control" placeholder="Enter ..." name="client_id"> {% endcomment %}
+                <select  class="form-control" name="contrat_id" aria-label="Default select example">
+                  <option selected>Selectionnez le contrat</option>
+                  {% for element in data %}
+                  <option  value=" {{ element.id }} ">{{ element.nom_contrat}}</option>
+                  {% endfor %}
+                </select>
+                <input type="text" class="invisible" {% if edit %} value= " {{ id_contrat }} "{% endif %}  name="id_contrat">
+              </div>
+            </div>
             <div class=" text-center justify-content-center bt-5">
               <button type="submit" class="btn btn-primary">{% if edit %} Mettre à jour {% else %}  Enregistrer  {% endif %}</button>
             </div>

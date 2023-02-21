@@ -5,8 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
-
-
+from datetime import datetime, date
 
 # connexion et deconnexion
 
@@ -23,8 +22,6 @@ def loginpage(request):
             redirect('login')
 
     return render(request, 'Pages/Compte/login.html')
-
-
 
 # accueil
 def index(request):
@@ -118,12 +115,11 @@ def Client_delete(request, id):
     messages.success(request, " Client supprimé avec succès ")
     return redirect('Client_list')
 
-
 # panneaux ------------------------------------------------------------------------------------
 
 def Panneau_create(request):
-
-    return render(request, 'pages/Panneaux/creer.html')
+    reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
+    return render(request, 'pages/Panneaux/creer.html', {'data':reponse})
 
 def Panneau_list(request):
     reponse = requests.get("http://127.0.0.1:8000/api/panneaus").json()
@@ -133,13 +129,15 @@ def Panneau_store(request):
 
     if request.GET['id_panneau']=="":
         url ="http://127.0.0.1:8000/api/panneaus"
-        requests.GET(url,data={
+        re=requests.post(url,data={
             "nom_panneau" :request.GET['nom_panneau'],
             "latitude" :request.GET['latitude'],
-            "longitude" :request.GET['longitude']
+            "longitude" :request.GET['longitude'],
+            "contrat_id" :request.GET['contrat_id']
         })
-        messages.success(request, " Client enrégistré avec succès ")
-        return render(request, 'pages/Panneaux/creer.html')
+        print(re)
+        messages.success(request, " Panneau enrégistré avec succès ")
+        return redirect('Panneau_create')
     else:
         id = request.GET['id_panneau']
         url ="http://127.0.0.1:8000/api/panneaus/"+str(id)
@@ -151,11 +149,8 @@ def Panneau_store(request):
 
         })
         messages.success(request, " Panneau modifié avec succès ")
-        reponse=requests.get("http://127.0.0.1:8000/api/panneaus").json()
-        return render(request, 'pages/Panneaux/liste.html',{'data':reponse})
-
-
-
+        return redirect('Panneau_list')
+       
 
 def Panneau_detail(request, id):
     link = "http://127.0.0.1:8000/api/panneaus/"+str(id)
@@ -190,12 +185,10 @@ def Panneau_delete(request, id):
     reponse = requests.get("http://127.0.0.1:8000/api/panneaus").json()
     print(reponse)
     messages.success(request, " Panneau supprimé avec succès ")
-    return render(request, 'pages/Panneaux/liste.html',{'data':reponse, 'reponse_del_req':reponse_del_req})
-
-
+    return redirect('Panneau_list')
 
 # contrat --------------------------------------------------------------------------------------
-from datetime import datetime, date
+
 def Contrat_create(request):
     reponse = requests.get("http://127.0.0.1:8000/api/clients").json()
     return render(request, 'pages/Contrats/creer.html',{'data':reponse})
