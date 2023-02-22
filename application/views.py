@@ -181,9 +181,9 @@ def Panneau_delete(request, id):
     link = "http://127.0.0.1:8000/api/panneaus/"+str(id)
     print(link)
     reponse_del_req = requests.delete(link).json()
-    print(reponse_del_req)
+ 
     reponse = requests.get("http://127.0.0.1:8000/api/panneaus").json()
-    print(reponse)
+ 
     messages.success(request, " Panneau supprimé avec succès ")
     return redirect('Panneau_list')
 
@@ -254,7 +254,10 @@ def Contrat_delete(request, id):
 def Contrat_detail(request, id):
     link = "http://127.0.0.1:8000/api/contrats/"+str(id)
     reponse = requests.get(link).json()
-    return render(request, 'pages/Contrats/detail.html', {'data':reponse})
+    link2 = "http://127.0.0.1:8000/api/panneaus/contrat/"+str(id)
+    reponse2 = requests.get(link2).json()
+    print(reponse2)
+    return render(request, 'pages/Contrats/detail.html', {'data':reponse, 'data2': reponse2})
 
 def Contrat_edit(request, id):
     link = "http://127.0.0.1:8000/api/contrats/"+str(id)
