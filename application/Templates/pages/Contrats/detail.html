@@ -82,7 +82,7 @@
                   </div>
                   <!-- /.col -->
                 </div>
-              {% endfor %}
+              
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -110,12 +110,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for element in data2 %}
+                        {% for element2 in data2 %}
                         <tr>
-                        <td>{{ element.id }}</td>
-                        <td>{{ element.nom_panneau }}</td>
+                        <td>{{ element2.id }}</td>
+                        <td>{{ element2.nom_panneau }}</td>
                         <td>
-                          <a href="{% url 'Panneau_desallouer' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                          <a href="{% url 'Panneau_desallouer' element2.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
                         </td>
                         </tr>
                         {% endfor  %}
@@ -143,12 +143,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for element in data3 %}
+                        {% for element3 in data3 %}
                         <tr>
-                        <td>{{ element.id }}</td>
-                        <td>{{ element.nom_panneau }}</td>
+                        <td>{{ element3.id }}</td>
+                        <td>{{ element3.nom_panneau }}</td>
                         <td>
-                          <a href="{% url 'Panneau_allouer'%}" class="btn btn-success"><i class="far fa-plus-square"></i></a>
+                          <form method="post" action= {% url 'Panneau_allouer'  %}>
+                            {% csrf_token %}
+                            <input type="text" class="invisible" value= " {{ element.id }} "  name="id_panneau">
+                            <input type="text" class="invisible" value= " {{ element3.id  }} "  name="id_contrat">
+                            <button type="submit" class="btn btn-success"><i class="far fa-plus-square"></i></a>
+                          </form>
                         </td>
                         </tr>
                         {% endfor  %}
@@ -176,6 +181,7 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+  {% endfor %}
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

@@ -193,13 +193,16 @@ def Panneau_desallouer(request, id):
     messages.success(request, " Panneau desalloué avec succès ")
     return redirect('Contrat_list')
 
-
+@csrf_exempt
 def Panneau_allouer(request):
     url = "http://127.0.0.1:8000/api/panneaus/allouer"
-    requests.put(url,data={
+    rep = requests.put(url,data={
             "panneau":request.POST['id_panneau'],
             "contrat":request.POST['id_contrat']
         })
+    print(request.POST['id_panneau'])
+    print(request.POST['id_contrat'])
+    print(rep)
     messages.success(request, " Panneau alloué avec succès ")
     return redirect('Contrat_list')
 
