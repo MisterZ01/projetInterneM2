@@ -45,8 +45,9 @@
                 <div class="form-group">
                   <label>Nom du client *</label>
                   {% comment %} <input type="text" class="form-control" placeholder="Enter ..." name="client_id"> {% endcomment %}
-                  <select  class="form-control" name="client_id" aria-label="Default select example">
-                    <option selected>Selectionnez le client</option>
+                  <select  class="form-control" name="client_id" aria-label="Default select example" >
+                    {% if edit %}  <option value="{{ id_client }} " selected>{{ nom_client }} {{ prenom_client }} </option>{% endif %}
+                    <option>Selectionnez le client</option>
                     {% for element in data %}
                     <option  value=" {{ element.id }} ">{{ element.nom_client}} {{ element.prenom_client}}</option>
                     {% endfor %}
@@ -54,10 +55,12 @@
                   <input type="text" class="invisible" {% if edit %} value= " {{ id_contrat }} "{% endif %}  name="id_contrat">
                 </div>
               </div>
+              <div class=" text-center justify-content-center bt-5" >
+                <button type="submit" class="btn btn-primary">{% if edit %} Mettre à jour {% else %}  Enregistrer  {% endif %}</button>
+              </div>
+
             </div>
-            <div class=" text-center justify-content-center bt-5">
-              <button type="submit" class="btn btn-primary">{% if edit %} Mettre à jour {% else %}  Enregistrer  {% endif %}</button>
-            </div>
+
           </form>
         </div>
         <!-- /.card-body -->
@@ -65,4 +68,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+
   {% endblock content %}

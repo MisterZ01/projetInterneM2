@@ -100,20 +100,6 @@
                     <div class="card card-widget widget-user">
                       <!-- Add the bg color to the header using any of the bg-* classes -->
                       <div class="col-12">
-                        <div class="card">
-                        <div class="card-header">
-                        <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                        <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                        </button>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        
                         <div class="card-body table-responsive p-0">
                         <table class="table table-hover text-nowrap">
                         <thead>
@@ -128,7 +114,9 @@
                         <tr>
                         <td>{{ element.id }}</td>
                         <td>{{ element.nom_panneau }}</td>
-                        <td>supprimer</td>
+                        <td>
+                          <a href="{% url 'Panneau_desallouer' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                        </td>
                         </tr>
                         {% endfor  %}
                         </tbody>
@@ -138,7 +126,41 @@
                         </div>
                         
                         </div>
-                    </div>
+                    
+                      </div>
+                      {% comment %} la liste des panneau non occupés {% endcomment %}
+                      <div class="col-12">
+                        <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                          <div class="card-header">
+                            <h2>Liste des panneaux Libres</h2>
+                          </div>
+                        <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Nom du panneau</th>
+                        <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for element in data3 %}
+                        <tr>
+                        <td>{{ element.id }}</td>
+                        <td>{{ element.nom_panneau }}</td>
+                        <td>
+                          <a href="{% url 'Panneau_allouer'%}" class="btn btn-success"><i class="far fa-plus-square"></i></a>
+                        </td>
+                        </tr>
+                        {% endfor  %}
+                        </tbody>
+                        </table>
+                        </div>
+                        
+                        </div>
+                        
+                        </div>
+                    
+                      </div>
                     <!-- /.widget-user -->
                   </div>
                   <!-- /.col -->

@@ -52,7 +52,7 @@ def Client_store(request):
         password_client=request.POST['password_client']
         url ="http://127.0.0.1:8000/api/clients"
 
-        reponse=requests.post(url,data={
+        requests.post(url,data={
             "nom_client":request.POST['nom_client'],
             "prenom_client":request.POST['prenom_client'],
             "email_client":request.POST['email_client'],
@@ -187,6 +187,23 @@ def Panneau_delete(request, id):
     messages.success(request, " Panneau supprimé avec succès ")
     return redirect('Panneau_list')
 
+def Panneau_desallouer(request, id):
+    link = "http://127.0.0.1:8000/api/panneaus/desallouer/"+str(id)
+    reponse_del_req = requests.get(link).json()
+    messages.success(request, " Panneau desalloué avec succès ")
+    return redirect('Contrat_list')
+
+
+def Panneau_allouer(request):
+    url = "http://127.0.0.1:8000/api/panneaus/allouer"
+    requests.put(url,data={
+            "panneau":request.POST['id_panneau'],
+            "contrat":request.POST['id_contrat']
+        })
+    messages.success(request, " Panneau alloué avec succès ")
+    return redirect('Contrat_list')
+
+
 # contrat --------------------------------------------------------------------------------------
 
 def Contrat_create(request):
@@ -256,8 +273,10 @@ def Contrat_detail(request, id):
     reponse = requests.get(link).json()
     link2 = "http://127.0.0.1:8000/api/panneaus/contrat/"+str(id)
     reponse2 = requests.get(link2).json()
+    link3 = "http://127.0.0.1:8000/api/panneaus/libre/free"
+    reponse3 = requests.get(link3).json()
     print(reponse2)
-    return render(request, 'pages/Contrats/detail.html', {'data':reponse, 'data2': reponse2})
+    return render(request, 'pages/Contrats/detail.html', {'data':reponse, 'data2': reponse2,'data3': reponse3})
 
 def Contrat_edit(request, id):
     link = "http://127.0.0.1:8000/api/contrats/"+str(id)
@@ -267,16 +286,23 @@ def Contrat_edit(request, id):
     for el in reponse:
         id_contrat=el["id"]
         nom_contrat=el["nom_contrat"]
+        prenom_client=el["prenom_client"]
+        nom_client=el["nom_client"]
+        id_client=el["client_id"]
         dateDebut=el["dateDebut"]
         dateFin=el["dateFin"]
-    # data = {nom_contrat, dateDebut,dateFin,entreprise_client}
+# data = {nom_contrat, dateDebut,dateFin,entreprise_client}
     return render(request, 'pages/Contrats/creer.html', {
+                                                        'edit':edit,
                                                         'edit':edit,
                                                         'id_contrat':id_contrat,
                                                         'nom_contrat':nom_contrat,
                                                         'dateDebut':dateDebut,
                                                         'dateFin':dateFin,
-                                                        'data':clients
+                                                        'data':clients,
+                                                        'prenom_client':prenom_client,
+                                                        'nom_client':nom_client,
+                                                        'id_client':id_client
                                                         })
 
 

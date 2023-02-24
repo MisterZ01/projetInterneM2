@@ -27,6 +27,8 @@ urlpatterns = [
     path('Panneau/edit/<int:id>', views.Panneau_edit, name="Panneau_edit"),
     path('Panneau/detail/<int:id>', views.Panneau_detail, name="Panneau_detail"),
     path('Panneau/delete/<int:id>', views.Panneau_delete, name="Panneau_delete"),
+    path('Panneau/desallouer/<int:id>', views.Panneau_desallouer, name="Panneau_desallouer"),
+    path('Panneau/allouer', views.Panneau_allouer, name="Panneau_allouer"),
 
 
     path('usageapi', views.usageapi, name="usageapi"),
