@@ -148,10 +148,10 @@
                         <td>{{ element3.id }}</td>
                         <td>{{ element3.nom_panneau }}</td>
                         <td>
-                          <form method="post" action= {% url 'Panneau_allouer'  %}>
+                          <form method="GET" action= {% url 'Panneau_allouer'  %}>
                             {% csrf_token %}
-                            <input type="text" class="invisible" value= " {{ element.id }} "  name="id_panneau">
-                            <input type="text" class="invisible" value= " {{ element3.id  }} "  name="id_contrat">
+                            <input type="text" class="invisible" value= "{{element.id}}"  name="id_panneau">
+                            <input type="text" class="invisible" value= "{{element3.id}}"  name="id_contrat">
                             <button type="submit" class="btn btn-success"><i class="far fa-plus-square"></i></a>
                           </form>
                         </td>

@@ -129,13 +129,13 @@ def Panneau_store(request):
 
     if request.GET['id_panneau']=="":
         url ="http://127.0.0.1:8000/api/panneaus"
-        re=requests.post(url,data={
+        requests.post(url,data={
             "nom_panneau" :request.GET['nom_panneau'],
             "latitude" :request.GET['latitude'],
             "longitude" :request.GET['longitude'],
             "contrat_id" :request.GET['contrat_id']
         })
-        print(re)
+        
         messages.success(request, " Panneau enrégistré avec succès ")
         return redirect('Panneau_create')
     else:
@@ -195,14 +195,14 @@ def Panneau_desallouer(request, id):
 
 @csrf_exempt
 def Panneau_allouer(request):
-    url = "http://127.0.0.1:8000/api/panneaus/allouer"
-    rep = requests.put(url,data={
-            "panneau":request.POST['id_panneau'],
-            "contrat":request.POST['id_contrat']
-        })
-    print(request.POST['id_panneau'])
-    print(request.POST['id_contrat'])
-    print(rep)
+    url = "http://127.0.0.1:8000/api/panneaus/allouer/element"
+    DATA = {
+            "panneau":request.GET['id_panneau'],
+            "contrat":request.GET['id_contrat']
+        }
+    a=requests.post(url,data=DATA)
+    print(a)
+    print(DATA)
     messages.success(request, " Panneau alloué avec succès ")
     return redirect('Contrat_list')
 
