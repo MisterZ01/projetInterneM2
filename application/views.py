@@ -30,11 +30,22 @@ def index(request):
 
     nbcontrattab  = requests.get("http://127.0.0.1:9000/api/contrats").json()
     nbcontrat = nbcontrattab["results"]
+    reponse = requests.get("http://127.0.0.1:8000/api/contrats").json()
+    echeance = 0
+    for el in reponse:
+        debut  = el['dateDebut']
+        fin  = el['dateFin']
+        debut = datetime.strptime(debut, '%Y-%m-%d')
+        fin = datetime.strptime(fin, '%Y-%m-%d')
+        if debut>fin :
+            echeance +=1
 
     nbpanneautab  = requests.get("http://127.0.0.1:9000/api/panneaus").json()
     nbpanneau = nbpanneautab["results"]
 
-    return render(request, 'index.html',{'nbclient':nbclient, 'nbcontrat': nbcontrat, 'nbpanneau': nbpanneau })
+    nbpanneaulibres  = requests.get("http://127.0.0.1:8000/api/panneaus/libre/count").json()
+
+    return render(request, 'index.html',{'echeance':echeance,'nbclient':nbclient, 'nbcontrat': nbcontrat, 'nbpanneau': nbpanneau, 'nbpanneaulibres': nbpanneaulibres  })
 # client ----------------------------------------------------------------------------------------
 def Client_create(request):
     edit=False
@@ -52,13 +63,21 @@ def Client_store(request):
         password_client=request.POST['password_client']
         url ="http://127.0.0.1:8000/api/clients"
 
-        requests.post(url,data={
+        a=requests.post(url,data={
             "nom_client":request.POST['nom_client'],
             "prenom_client":request.POST['prenom_client'],
             "email_client":request.POST['email_client'],
             "entreprise_client":request.POST['entreprise_client'],
             "password_client":request.POST['password_client']
         })
+        dat = {
+            "nom_client":request.POST['nom_client'],
+            "prenom_client":request.POST['prenom_client'],
+            "email_client":request.POST['email_client'],
+            "entreprise_client":request.POST['entreprise_client'],
+            "password_client":request.POST['password_client']
+        }
+
         messages.success(request, " Client enrégistré avec succès ")
         return redirect('Client_list')
     else:
@@ -135,7 +154,7 @@ def Panneau_store(request):
             "longitude" :request.GET['longitude'],
             "contrat_id" :request.GET['contrat_id']
         })
-        
+
         messages.success(request, " Panneau enrégistré avec succès ")
         return redirect('Panneau_create')
     else:
@@ -146,11 +165,10 @@ def Panneau_store(request):
             "nom_panneau" :request.GET['nom_panneau'],
             "latitude" :request.GET['latitude'],
             "longitude" :request.GET['longitude']
-
         })
         messages.success(request, " Panneau modifié avec succès ")
         return redirect('Panneau_list')
-       
+
 
 def Panneau_detail(request, id):
     link = "http://127.0.0.1:8000/api/panneaus/"+str(id)
@@ -181,9 +199,9 @@ def Panneau_delete(request, id):
     link = "http://127.0.0.1:8000/api/panneaus/"+str(id)
     print(link)
     reponse_del_req = requests.delete(link).json()
- 
+
     reponse = requests.get("http://127.0.0.1:8000/api/panneaus").json()
- 
+
     messages.success(request, " Panneau supprimé avec succès ")
     return redirect('Panneau_list')
 
@@ -195,14 +213,10 @@ def Panneau_desallouer(request, id):
 
 @csrf_exempt
 def Panneau_allouer(request):
-    url = "http://127.0.0.1:8000/api/panneaus/allouer/element"
-    DATA = {
-            "panneau":request.GET['id_panneau'],
-            "contrat":request.GET['id_contrat']
-        }
-    a=requests.post(url,data=DATA)
-    print(a)
-    print(DATA)
+    pan=request.GET['id_panneau']
+    cont=request.GET['id_contrat']
+    url = "http://127.0.0.1:8000/api/panneaus/allouer/element/"+str(pan)+"/"+str(cont)
+    a=requests.put(url)
     messages.success(request, " Panneau alloué avec succès ")
     return redirect('Contrat_list')
 
@@ -225,7 +239,7 @@ def Contrat_list(request):
         today = r.strftime("%Y-%m-%d")
         # le nombre de jours jusqu'a aujourd'hui
         consommer = r - debut
-        # le nombre de joyr total de diffusion 
+        # le nombre de joyr total de diffusion
         difference = fin - debut
         el['duree']=difference.days
         el['pourcentage']=(consommer.days*100)/difference.days
@@ -307,6 +321,41 @@ def Contrat_edit(request, id):
                                                         'nom_client':nom_client,
                                                         'id_client':id_client
                                                         })
+
+# def contrat_pdf(request):
+
+#     from django.http import HttpResponse
+#     from django.views.generic import View
+
+#     from .utils import render_to_pdf #created in step 4
+
+#     class GeneratePdf(View):
+#         def get(self, request, *args, **kwargs):
+#             data = {
+#                 'today': datetime.date.today(),
+#                 'amount': 39.99,
+#                 'customer_name': 'Cooper Mann',
+#                 'order_id': 1233434,
+#             }
+#             pdf = render_to_pdf('Contrats/contratPdf.html', data)
+#             return HttpResponse(pdf, content_type='application/pdf')
+
+
+from django.http import HttpResponse
+from django.views.generic import View
+
+from .utils import render_to_pdf #created in step 4
+
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+        data = {
+
+            'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+        }
+        pdf = render_to_pdf('pages/Contrats/contratPdf.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 
 # ---------------------------------------------- projet odc test api ----------------------------

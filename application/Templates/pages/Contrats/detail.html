@@ -36,7 +36,7 @@
                   <a href="{% url 'Contrat_create' %}" class="btn btn-primary">Ajouter un contrat</a>
               </div>
               <!-- /.card-header -->
-              
+
               {% for element in data %}
                 <div class="card-body">
                   <div class="col-md-12">
@@ -82,7 +82,7 @@
                   </div>
                   <!-- /.col -->
                 </div>
-              
+
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -122,11 +122,11 @@
                         </tbody>
                         </table>
                         </div>
-                        
+
                         </div>
-                        
+
                         </div>
-                    
+
                       </div>
                       {% comment %} la liste des panneau non occupés {% endcomment %}
                       <div class="col-12">
@@ -139,7 +139,7 @@
                         <tr>
                         <th>ID</th>
                         <th>Nom du panneau</th>
-                        <th>Action</th>
+                        <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -148,10 +148,10 @@
                         <td>{{ element3.id }}</td>
                         <td>{{ element3.nom_panneau }}</td>
                         <td>
-                          <form method="GET" action= {% url 'Panneau_allouer'  %}>
+                          <form method="GET" action="{% url 'Panneau_allouer' %}" >
                             {% csrf_token %}
-                            <input type="text" class="invisible" value= "{{element.id}}"  name="id_panneau">
-                            <input type="text" class="invisible" value= "{{element3.id}}"  name="id_contrat">
+                            <input type="text" class="invisible" value= "{{element.id}}"  name="id_contrat">
+                            <input type="text" class="invisible" value= "{{element3.id}}"  name="id_panneau">
                             <button type="submit" class="btn btn-success"><i class="far fa-plus-square"></i></a>
                           </form>
                         </td>
@@ -160,11 +160,11 @@
                         </tbody>
                         </table>
                         </div>
-                        
+
                         </div>
-                        
+
                         </div>
-                    
+
                       </div>
                     <!-- /.widget-user -->
                   </div>

@@ -50,7 +50,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="{% url 'Panneau_list' %}" class="small-box-footer">Plus d'info<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'Contrat_list' %}" class="small-box-footer">Plus d'info<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -58,13 +58,13 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3> {{ nbpanneau }} </h3>
+                <h3> {{ nbpanneaulibres }} </h3>
                 <p>Panneaux disponible(s)</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">Plus d'info<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'Panneau_list' %}" class="small-box-footer">Plus d'info<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -72,13 +72,13 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3> {{ nbcontrat }} </h3>
+                <h3> {{ echeance }} </h3>
                 <p>Contrat(s) à échéance</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">Plus d'info<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{% url 'Contrat_list' %}" class="small-box-footer">Plus d'info<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -116,7 +116,7 @@
                        style="position: relative; height: 300px;">
                       <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
                    </div>
-                  
+
                 </div>
               </div><!-- /.card-body -->
             </div>

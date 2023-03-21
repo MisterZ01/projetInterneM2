@@ -19,6 +19,8 @@ urlpatterns = [
     path('contrat/edit/<int:id>', views.Contrat_edit, name="Contrat_edit"),
     path('Contrat/detail/<int:id>', views.Contrat_detail, name="Contrat_detail"),
     path('Contrat/delete/<int:id>', views.Contrat_delete, name="Contrat_delete"),
+    # path('Contrat/pdf', views.contrat_pdf, name="Contrat_pdf"),
+    path('Contrat/pdf', views.GeneratePdf.as_view()),
 
     # debut panneau
     path('Panneau/create', views.Panneau_create, name="Panneau_create"),

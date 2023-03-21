@@ -18,13 +18,13 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label>Nom representant</label>
-                  <input id="nom_client" type="text" class="form-control" {% if edit %} value= " {{ nom_client }} "  {% endif %} placeholder="nom ..." name="nom_client">
+                  <input id="nom_client" type="text" class="form-control" {% if edit %} value= " {{ nom_client }} "  {% endif %} placeholder="nom ..." name="nom_client" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label>Prenom(s) representant</label>
-                  <input type="text" class="form-control" {% if edit %} value= " {{ prenom_client }} "  {% endif %} placeholder="prenom ..." name="prenom_client">
+                  <input type="text" class="form-control" {% if edit %} value= " {{ prenom_client }} "  {% endif %} placeholder="prenom ..." name="prenom_client" required>
                 </div>
               </div>
             </div>
@@ -33,7 +33,7 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label>Nom de l'Entreprise</label>
-                  <input type="text" class="form-control" {% if edit %} value= " {{ entreprise_client }} "  {% endif %} placeholder="Entreprise ..." name="entreprise_client">
+                  <input type="text" class="form-control" {% if edit %} value= " {{ entreprise_client }} "  {% endif %} placeholder="Entreprise ..." name="entreprise_client" required>
                 </div>
               </div>
               <!-- <div class="col-sm-3">
@@ -45,14 +45,14 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Email de l'entrepsie</label>
-                  <input type="email" class="form-control" {% if edit %} value= " {{ email_client }} "  {% endif %} placeholder="Email ..." name="email_client">
+                  <input type="email" class="form-control" {% if edit %} value= " {{ email_client }} "  {% endif %} placeholder="Email ..." name="email_client" required>
                 </div>
               </div>
             </div>
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Mot de passe</label>
-                  <input type="text"  {% if edit %} class="invisible "{% else %} class="form-control" {% endif %} placeholder="Saisir le mot de passe ..." name="password_client">
+                  <input type="text"  {% if edit %} class="invisible "{% else %} class="form-control" {% endif %} placeholder="Saisir le mot de passe ..." name="password_client" required>
                   <input type="text" class="invisible" {% if edit %} value= " {{ id_client }} "{% endif %}  name="id">
                 </div>
               </div>

@@ -41,7 +41,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
-                <table class="table" id="example1" > 
+                <table class="table" id="example1" >
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
@@ -67,8 +67,9 @@
                           <div  class="progress-bar progress-bar-danger" style="width:{{element.pourcentage}}%"></div>
                         </div>
                       </td>
-                      <td><span {% if element.pourcentage < 50   %} class="badge bg-success" {% elif element.pourcentage < 90  %} class="badge bg-warning" {% else %}   class="badge bg-danger"   {% endif %} >{{ element.pourcentage }}%</span></td>
+                      <td><span {% if element.pourcentage < 0   %} class="badge bg-danger"{% elif element.pourcentage < 50   %} class="badge bg-success" {% elif element.pourcentage < 90  %} class="badge bg-warning" {% else %}   class="badge bg-danger"   {% endif %} >{{ element.pourcentage }}%</span></td>
                       <td>
+                        <a href="{% url 'Contrat_pdf' %}" class="btn btn-light"><i class="fas fa-download"></i></a>
                           <a href="{% url 'Contrat_detail' element.id %}" class="btn btn-primary"><i class="far fa-eye"></i></a>
                           <a href="{% url 'Contrat_edit' element.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                           <a href="{% url 'Contrat_delete' element.id %}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>

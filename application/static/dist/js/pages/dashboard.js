@@ -224,11 +224,11 @@ $(function () {
       data: pieData,
       options: pieOptions
     })
-  
+
     // Sales graph chart
     var salesGraphChartCanvas = $('#line-chart').get(0).getContext('2d')
     // $('#revenue-chart').get(0).getContext('2d');
-  
+
     var salesGraphChartData = {
       labels: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2', '2012 Q3', '2012 Q4', '2013 Q1', '2013 Q2'],
       datasets: [
@@ -247,7 +247,7 @@ $(function () {
         }
       ]
     }
-  
+
     var salesGraphChartOptions = {
       maintainAspectRatio: false,
       responsive: true,
@@ -278,7 +278,7 @@ $(function () {
         }]
       }
     }
-  
+
     // This will get the first returned node in the jQuery collection.
     // eslint-disable-next-line no-unused-vars
     var salesGraphChart = new Chart(salesGraphChartCanvas, { // lgtm[js/unused-local-variable]
@@ -287,7 +287,7 @@ $(function () {
       options: salesGraphChartOptions
     })
   })
-  
+
 
 })})});
 
